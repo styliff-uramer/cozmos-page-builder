@@ -15,13 +15,14 @@
   - [Prebuild component plan](#prebuild-component-plan)
   - [Prebuild ideas](#prebuild-ideas)
 
+
+
+
 ## Intro
 
 This is a mock up of a page builder website create with Vite, React, Typescript and Three.js
 
-<video width="320" height="240" controls>
-  <source src="https://will-madd-misc.b-cdn.net/demo.mov" type="video/mp4">
-</video>
+https://github.com/willmadd/cozmos-page-builder/assets/39624752/f643ff64-90c8-4fb1-975d-658be4f7b87b
 
 ## Setup Instructions
 
