@@ -49,6 +49,7 @@ const UrlInput = () => {
           texture,
           type: MediaType.Video,
           aspectRatio,
+          filter: 0,
         });
       };
       video.onerror = (error) => {
@@ -69,6 +70,7 @@ const UrlInput = () => {
             texture,
             type: MediaType.Image,
             aspectRatio,
+            filter: 0,
           });
         },
         (progress) => console.log(progress),

@@ -14,6 +14,7 @@ export interface Item {
   texture: THREE.Texture;
   type: MediaType;
   aspectRatio: number;
+  filter: number;
 }
 
 export interface PageBuilderState {
@@ -34,6 +35,7 @@ const usePageBuilderStore = create<PageBuilderState>((set) => ({
       type: MediaType.Image,
       texture: new THREE.TextureLoader().load("https://picsum.photos/200/300"),
       aspectRatio: 0.6666666666666666,
+      filter: 1,
     },
   ],
   editItem: (item: Item) =>

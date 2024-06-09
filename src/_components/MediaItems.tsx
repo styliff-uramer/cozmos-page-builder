@@ -37,7 +37,7 @@ const MediaItems = (props: Props) => {
     items.forEach((item, i) => {
       const shouldAnimate = !addedIds.includes(item.id);
       const geometry = new THREE.PlaneGeometry(item.aspectRatio, 1);
-      const material = materialSelector(0, item.texture);
+      const material = materialSelector(item.filter, item.texture);
       const plane = new THREE.Mesh(geometry, material);
       const initialScale = shouldAnimate ? 0 : 1;
       plane.scale.set(initialScale, initialScale, initialScale);
