@@ -1,3 +1,4 @@
+import LoadingOverlay from "./LoadingOverlay";
 import Scene from "./Scene";
 import UrlInput from "./UrlInput";
 
@@ -8,6 +9,7 @@ const PageBuilder = (props: Props) => {
     <>
       <UrlInput />
       <Scene />
+      <LoadingOverlay />
     </>
   );
 };

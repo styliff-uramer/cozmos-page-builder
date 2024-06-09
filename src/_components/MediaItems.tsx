@@ -1,7 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import usePageBuilderStore from "../_store/pageBuilderStore";
 
-// gsap
 import * as THREE from "three";
 import { useThree } from "../_context/ThreeContext";
 
@@ -19,11 +18,11 @@ const MediaItems = (props: Props) => {
   const [addedIds, setAddedIds] = useState<number[]>([]);
 
   useEffect(() => {
-    console.log("items", items);
     items.forEach((item, i) => {
       const shouldAnimate = !addedIds.includes(item.id);
-      const geometry = new THREE.PlaneGeometry(1, 1);
-      const material = new THREE.MeshBasicMaterial({ color: 0xeb0034 });
+      const geometry = new THREE.PlaneGeometry(item.aspectRatio, 1);
+      const material = new THREE.MeshBasicMaterial({ map: item.texture });
+      // const material = new THREE.VideoTexture(item.texture);
       const plane = new THREE.Mesh(geometry, material);
       const initialScale = shouldAnimate ? 0 : 1;
       plane.scale.set(initialScale, initialScale, initialScale);
@@ -31,7 +30,7 @@ const MediaItems = (props: Props) => {
       plane.position.x = item.position.x;
       plane.position.y = item.position.y;
       plane.position.z = 0.1;
-      plane.userData.id = item.id; // Use this to link the mesh to the stateItem when removing or editing
+      plane.userData.id = item.id; // this is to link the mesh to the stateItem when removing or editing
       scene.add(plane);
 
       if (shouldAnimate) {
