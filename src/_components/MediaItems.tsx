@@ -1,30 +1,13 @@
 import { useRef, useEffect, useState } from "react";
 import usePageBuilderStore from "../_store/pageBuilderStore";
-
 import * as THREE from "three";
 import { useThree } from "../_context/ThreeContext";
-
 import dragBehaviours from "../utils/dragBehaviours";
-import overlayMaterial from "../customMaterials/overlayMaterial";
-import invertMaterial from "../customMaterials/invertMaterial";
 import { animateBounceIn } from "../_animations";
-
-import {
-  CSS2DRenderer,
-  CSS2DObject,
-} from "three/addons/renderers/CSS2DRenderer.js";
 import useSiteStatusStore from "../_store/siteStatusStore";
+import materialSelector from "../utils/materialSelector";
 
 type Props = {};
-
-const materialSelector = (index: number, texture: THREE.Texture) => {
-  if (index === 1) {
-    return overlayMaterial(texture);
-  } else if (index === 2) {
-    return invertMaterial(texture);
-  }
-  return new THREE.MeshBasicMaterial({ map: texture });
-};
 
 const MediaItems = (props: Props) => {
   const { scene, camera, renderer } = useThree();

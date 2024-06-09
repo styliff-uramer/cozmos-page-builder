@@ -32,7 +32,7 @@ const TextureButtons = () => {
 
     updatePositions();
   }, [items]);
-  console.log("isDragging", isDragging);
+
   return (
     <div>
       {positions.map((position) => {

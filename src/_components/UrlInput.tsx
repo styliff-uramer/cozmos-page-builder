@@ -15,7 +15,7 @@ const UrlInput = () => {
 
   const handleSubmit = () => {
     setError("");
-
+    console.log("first");
     if (!url) {
       setError("Please enter a URL.");
       return;
@@ -100,7 +100,7 @@ const UrlInput = () => {
           onChange={(e) => setUrl(e.target.value)}
         />
         <button
-          disabled={!url || siteStatus === SiteStatusType.Loading}
+          disabled={siteStatus === SiteStatusType.Loading}
           className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[200px]"
           onClick={() => handleSubmit()}
         >
