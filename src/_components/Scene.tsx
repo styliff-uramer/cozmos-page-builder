@@ -2,10 +2,13 @@ import { useEffect, useRef } from "react";
 import { useThree } from "../_context/ThreeContext";
 import PageBuilderCanvas from "./PageBuilderCanvas";
 import MediaItems from "./MediaItems";
+import * as THREE from "three";
 
 const Scene: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
   const { scene, camera, renderer } = useThree();
+
+  const pageBuilderCanvasRef = useRef<THREE.Mesh | null>(null);
 
   useEffect(() => {
     if (mountRef.current) {
@@ -28,8 +31,8 @@ const Scene: React.FC = () => {
 
   return (
     <div ref={mountRef}>
-      <PageBuilderCanvas />
-      <MediaItems />
+      <PageBuilderCanvas ref={pageBuilderCanvasRef} />
+      <MediaItems canvasArea={pageBuilderCanvasRef} />
     </div>
   );
 };

@@ -7,9 +7,11 @@ import { animateBounceIn } from "../_animations";
 import useSiteStatusStore from "../_store/siteStatusStore";
 import materialSelector from "../utils/materialSelector";
 
-type Props = {};
+type Props = {
+  canvasArea: React.MutableRefObject<THREE.Mesh | null>;
+};
 
-const MediaItems = (props: Props) => {
+const MediaItems = ({ canvasArea }: Props) => {
   const { scene, camera, renderer } = useThree();
   const { items, editItem } = usePageBuilderStore();
   const { setIsDragging } = useSiteStatusStore();
@@ -47,7 +49,8 @@ const MediaItems = (props: Props) => {
       renderer.domElement,
       items,
       editItem,
-      setIsDragging
+      setIsDragging,
+      canvasArea
     );
 
     return () => {

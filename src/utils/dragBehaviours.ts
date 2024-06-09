@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { DragControls } from "three-stdlib";
 import { Item } from "../_store/pageBuilderStore";
 import { animateScaleUp, animateRevertScale } from "../_animations";
+import checkForIntersections from "./checkForIntersections";
 
 const dragBehaviours = (
   meshes: THREE.Mesh[],
@@ -9,7 +10,8 @@ const dragBehaviours = (
   rendererDomElement: HTMLElement,
   items: Item[],
   editItem: (item: Item) => void,
-  setIsDragging: (isDragging: number | null) => void
+  setIsDragging: (isDragging: number | null) => void,
+  canvasArea: React.MutableRefObject<THREE.Mesh | null>
 ) => {
   const dragControls = new DragControls(meshes, camera, rendererDomElement);
 
@@ -26,6 +28,8 @@ const dragBehaviours = (
     if (object instanceof THREE.Mesh) {
       animateRevertScale(object.scale);
       setIsDragging(null);
+      const intersections = checkForIntersections(canvasArea, object);
+      console.log("intersections", intersections);
       const meshId = object.userData.id;
       const updatedStateItem = items.find(
         (stateItem) => stateItem.id === meshId

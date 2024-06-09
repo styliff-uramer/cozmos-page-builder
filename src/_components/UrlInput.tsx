@@ -9,7 +9,7 @@ const UrlInput = () => {
 
   const [error, setError] = useState<string>("");
 
-  const { addItem, items } = usePageBuilderStore();
+  const { addItem } = usePageBuilderStore();
 
   const { siteStatus, setSiteStatus } = useSiteStatusStore();
 

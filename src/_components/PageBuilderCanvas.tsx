@@ -1,8 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, forwardRef, useRef } from "react";
 import * as THREE from "three";
 import { useThree } from "../_context/ThreeContext";
 
-const PageBuilderCanvas = () => {
+const PageBuilderCanvas = forwardRef((props, ref) => {
   const { scene } = useThree();
 
   useEffect(() => {
@@ -14,12 +14,17 @@ const PageBuilderCanvas = () => {
 
     scene.add(plane);
 
+    if (ref && "current" in ref) {
+      ref.current = plane;
+    }
+
+    // Clean up
     return () => {
       scene.remove(plane);
     };
-  }, [scene]);
+  }, [scene, ref]);
 
   return null;
-};
+});
 
 export default PageBuilderCanvas;
