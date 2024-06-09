@@ -13,9 +13,9 @@ export const animateBounceIn = (el: THREE.Vector3) => {
 
 export const animateScaleUp = (el: THREE.Vector3) => {
   gsap.to(el, {
-    x: 1.1,
-    y: 1.1,
-    z: 1.1,
+    x: 1.05,
+    y: 1.05,
+    z: 1.05,
     duration: 0.1,
     ease: "power1.inOut",
   });

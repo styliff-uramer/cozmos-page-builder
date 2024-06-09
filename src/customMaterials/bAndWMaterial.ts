@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-const overlayMaterial = (texture: any) =>
+const blackAndWhiteMaterial = (texture: any) =>
   new THREE.ShaderMaterial({
     uniforms: {
       image: { value: texture },
@@ -20,11 +20,14 @@ const overlayMaterial = (texture: any) =>
 
         void main() {
           vec4 baseColor = texture2D(image, vUv);
-          vec4 overlayColor = vec4(0.0, 0.0, 0.0, 0.6);
-            gl_FragColor = mix(baseColor, overlayColor, overlayColor.a);
 
+          float gray = dot(baseColor.rgb, vec3(0.299, 0.587, 0.114));
+          vec4 grayscaleColor = vec4(gray, gray, gray, baseColor.a);
+
+         vec4 overlayColor = vec4(0.0, 0.0, 0.0, 0.6);
+         gl_FragColor = mix(grayscaleColor, overlayColor, overlayColor.a);
         }
         `,
   });
 
-export default overlayMaterial;
+export default blackAndWhiteMaterial;
