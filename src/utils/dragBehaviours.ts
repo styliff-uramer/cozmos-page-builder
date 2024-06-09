@@ -1,10 +1,13 @@
 import * as THREE from "three";
 import { DragControls } from "three-stdlib";
+import { Item } from "../_store/pageBuilderStore";
 
 const dragBehaviours = (
   meshes: THREE.Mesh[],
   camera: THREE.Camera,
-  rendererDomElement: HTMLElement
+  rendererDomElement: HTMLElement,
+  items: Item[],
+  editItem: (item: Item) => void
 ) => {
   const dragControls = new DragControls(meshes, camera, rendererDomElement);
 
@@ -14,17 +17,16 @@ const dragBehaviours = (
       console.log("drag start");
     }
   });
-  dragControls.addEventListener("drag", (event: any) => {
-    const object = event.object as THREE.Mesh;
-    if (object instanceof THREE.Mesh) {
-      console.log("is Dragging");
-    }
-  });
 
-  dragControls.addEventListener("dragstart", (event: any) => {
+  dragControls.addEventListener("dragend", (event: any) => {
     const object = event.object as THREE.Mesh;
     if (object instanceof THREE.Mesh) {
-      console.log("drag end");
+      const itemId = object.userData.id;
+      const updatedItem = items.find((item) => item.id === itemId);
+      if (updatedItem) {
+        updatedItem.position = object.position;
+        editItem(updatedItem);
+      }
     }
   });
 

@@ -10,7 +10,7 @@ type Props = {};
 
 const MediaItems = (props: Props) => {
   const { scene, camera, renderer } = useThree();
-  const { items } = usePageBuilderStore();
+  const { items, editItem } = usePageBuilderStore();
 
   const meshesRef = useRef<THREE.Mesh[]>([]);
 
@@ -18,12 +18,16 @@ const MediaItems = (props: Props) => {
     console.log("items", items);
     items.forEach((item, i) => {
       const geometry = new THREE.PlaneGeometry(1, 1);
-      const material = new THREE.MeshBasicMaterial({ color: 0xff0034 });
+      const material = new THREE.MeshBasicMaterial({ color: 0xeb0034 });
       const plane = new THREE.Mesh(geometry, material);
       plane.rotation.x = Math.PI * 2;
-      plane.position.x = 0;
-      plane.position.y = 0;
-      plane.position.z = 1;
+      plane.position.x = item.position.x;
+      plane.position.y = item.position.y;
+      //   plane.position.x = 0;
+      //   plane.position.y = 0;
+
+      plane.position.z = 0.1;
+      plane.userData.id = item.id; // Use this to link the mesh to the stateItem when removing or editing
       scene.add(plane);
       meshesRef.current[i] = plane;
     });
@@ -31,7 +35,9 @@ const MediaItems = (props: Props) => {
     const cleanUpDragControls = dragBehaviours(
       meshesRef.current,
       camera,
-      renderer.domElement
+      renderer.domElement,
+      items,
+      editItem
     );
 
     return () => {
@@ -42,7 +48,7 @@ const MediaItems = (props: Props) => {
     };
   }, [items]);
 
-  return <DragMeshes meshes={meshesRef.current} />;
+  return null;
 };
 
 export default MediaItems;
