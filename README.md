@@ -41,6 +41,13 @@
 - Implement ink outline (https://twitter.com/WillMaddicott/status/1648791950894432259)
 - Imlement pencil shading (https://twitter.com/WillMaddicott/status/1650596978936487937)
 
+8. Possible optomisations
+
+- Client side image optomisation on upload - possible use https://github.com/FatehAK/vite-plugin-image-optimizer ?
+- Occlusion culling
+- Instanced Meshed, may not be suitable here, need to share a texture
+- Texture Atlas - also may not be suitable as
+
 ### Additional features brainstorm
 
 - Snap to grid
