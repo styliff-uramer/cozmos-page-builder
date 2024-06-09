@@ -15,7 +15,16 @@ const UrlInput = () => {
 
   const handleSubmit = () => {
     setError("");
-    //TODO Add URL Validation
+
+    if (!url) {
+      setError("Please enter a URL.");
+      return;
+    } else if (!/\.(mp4|mov|png|jpg|jpeg)$/i.test(url)) {
+      setError(
+        "Supported file types are .mp4, .mov, .png, .jpg, or .jpeg files."
+      );
+      return;
+    }
 
     setSiteStatus(SiteStatusType.Loading);
 
