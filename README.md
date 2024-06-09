@@ -19,6 +19,10 @@
 
 This is a mock up of a page builder website create with Vite, React, Typescript and Three.js
 
+<video width="320" height="240" controls>
+  <source src="https://will-madd-misc.b-cdn.net/demo.mov" type="video/mp4">
+</video>
+
 ## Setup Instructions
 
 ### Prerequisites
