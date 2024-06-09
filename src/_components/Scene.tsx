@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useThree } from "../_context/ThreeContext";
 import PageBuilderCanvas from "./PageBuilderCanvas";
+import MediaItems from "./MediaItems";
 
 const Scene: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -28,6 +29,7 @@ const Scene: React.FC = () => {
   return (
     <div ref={mountRef}>
       <PageBuilderCanvas />
+      <MediaItems />
     </div>
   );
 };
