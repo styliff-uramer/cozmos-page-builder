@@ -3,7 +3,7 @@ import Scene from "./Scene";
 import TextureButtons from "./TextureButtons";
 import UrlInput from "./UrlInput";
 
-const PageBuilder = () => {
+const PageBuilder: React.FC = () => {
   return (
     <>
       <UrlInput />

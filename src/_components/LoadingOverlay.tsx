@@ -1,8 +1,6 @@
 import useSiteStatusStore, { SiteStatusType } from "../_store/siteStatusStore";
 
-type Props = {};
-
-const LoadingOverlay = (props: Props) => {
+const LoadingOverlay: React.FC = () => {
   const { siteStatus } = useSiteStatusStore();
 
   if (siteStatus !== SiteStatusType.Loading) return null;

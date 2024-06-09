@@ -11,7 +11,7 @@ type Position = {
   y: number;
 };
 
-const TextureButtons = () => {
+const TextureButtons: React.FC = () => {
   const { camera, renderer } = useThree();
   const { items, editItem } = usePageBuilderStore();
   const [positions, setPositions] = useState<Position[]>([]);
@@ -48,7 +48,6 @@ const TextureButtons = () => {
               top: `${position.y - 100}px`,
             }}
             onClick={() => {
-              console.log("position.id", position.id);
               let selectedItem = items.find((item) => item.id === position.id);
               if (!selectedItem) return;
               selectedItem.filter =

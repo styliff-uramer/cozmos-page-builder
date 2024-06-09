@@ -2,10 +2,10 @@ import { useState } from "react";
 import usePageBuilderStore, { MediaType } from "../_store/pageBuilderStore";
 import * as THREE from "three";
 import useSiteStatusStore, { SiteStatusType } from "../_store/siteStatusStore";
-const UrlInput = () => {
-  const [url, setUrl] = useState<string>(
-    `https://imgur.com/gallery/kittens-9p8xPLu`
-  );
+import prepareVideo from "../utils/prepareVideo";
+
+const UrlInput: React.FC = () => {
+  const [url, setUrl] = useState<string>(``);
 
   const [error, setError] = useState<string>("");
 
@@ -15,7 +15,6 @@ const UrlInput = () => {
 
   const handleSubmit = () => {
     setError("");
-    console.log("first");
     if (!url) {
       setError("Please enter a URL.");
       return;
@@ -29,28 +28,14 @@ const UrlInput = () => {
     setSiteStatus(SiteStatusType.Loading);
 
     if (/.mp4|.mov$/.test(url)) {
-      const video = document.createElement("video");
-      video.src = url;
-      video.loop = true;
-      video.muted = true;
-      video.crossOrigin = "anonymous";
-      video.play();
+      const video = prepareVideo(url);
 
       const texture = new THREE.VideoTexture(video);
       texture.needsUpdate = true;
 
       video.onloadeddata = () => {
         const aspectRatio = video.videoWidth / video.videoHeight;
-        setSiteStatus(SiteStatusType.Ready);
-        addItem({
-          id: Date.now(),
-          position: new THREE.Vector3(0, 0, 0),
-          rotation: new THREE.Vector3(0, 0, 0),
-          texture,
-          type: MediaType.Video,
-          aspectRatio,
-          filter: 0,
-        });
+        handleTextureLoaded(texture, aspectRatio, MediaType.Video);
       };
       video.onerror = (error) => {
         setSiteStatus(SiteStatusType.Ready);
@@ -62,16 +47,7 @@ const UrlInput = () => {
         url,
         (texture) => {
           const aspectRatio = texture.image.width / texture.image.height;
-          setSiteStatus(SiteStatusType.Ready);
-          addItem({
-            id: Date.now(),
-            position: new THREE.Vector3(0, 0, 0),
-            rotation: new THREE.Vector3(0, 0, 0),
-            texture,
-            type: MediaType.Image,
-            aspectRatio,
-            filter: 0,
-          });
+          handleTextureLoaded(texture, aspectRatio, MediaType.Image);
         },
         (progress) => console.log(progress),
         (error) => {
@@ -85,8 +61,25 @@ const UrlInput = () => {
     }
   };
 
+  const handleTextureLoaded = (
+    texture: THREE.Texture,
+    aspectRatio: number,
+    type: MediaType
+  ) => {
+    setSiteStatus(SiteStatusType.Ready);
+    addItem({
+      id: Date.now(),
+      position: new THREE.Vector3(0, 0, 0),
+      rotation: new THREE.Vector3(0, 0, 0),
+      texture,
+      type,
+      aspectRatio,
+      filter: 0,
+    });
+  };
+
   return (
-    <div className="absolute  top-4 left-4 w-[480px] flex flex-col">
+    <div className="absolute  top-4 left-4 w-[880px] flex flex-col">
       <div className="flex">
         <label className="absolute -left-[9999px]" htmlFor="url">
           URL

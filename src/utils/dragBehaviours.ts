@@ -13,7 +13,7 @@ const dragBehaviours = (
   setIsDragging: (isDragging: number | null) => void,
   canvasArea: React.MutableRefObject<THREE.Mesh | null>,
   removeById: (id: number) => void
-) => {
+): (() => void) => {
   const dragControls = new DragControls(meshes, camera, rendererDomElement);
 
   dragControls.addEventListener("dragstart", (event: any) => {

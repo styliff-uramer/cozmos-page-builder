@@ -11,7 +11,7 @@ type Props = {
   canvasArea: React.MutableRefObject<THREE.Mesh | null>;
 };
 
-const MediaItems = ({ canvasArea }: Props) => {
+const MediaItems: React.FC<Props> = ({ canvasArea }) => {
   const { scene, camera, renderer } = useThree();
   const { items, editItem, removeById } = usePageBuilderStore();
   const { setIsDragging } = useSiteStatusStore();

@@ -2,7 +2,10 @@ import * as THREE from "three";
 import overlayMaterial from "../customMaterials/overlayMaterial";
 import invertMaterial from "../customMaterials/invertMaterial";
 
-const materialSelector = (index: number, texture: THREE.Texture) => {
+const materialSelector = (
+  index: number,
+  texture: THREE.Texture
+): THREE.Material => {
   if (index === 1) {
     return overlayMaterial(texture);
   } else if (index === 2) {

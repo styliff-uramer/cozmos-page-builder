@@ -1,30 +1,33 @@
-import { useEffect, forwardRef, useRef } from "react";
+import { useEffect, forwardRef } from "react";
 import * as THREE from "three";
 import { useThree } from "../_context/ThreeContext";
 
-const PageBuilderCanvas = forwardRef((props, ref) => {
-  const { scene } = useThree();
+type PageBuilderCanvasProps = {};
 
-  useEffect(() => {
-    const geometry = new THREE.PlaneGeometry(10, 6);
-    const material = new THREE.MeshBasicMaterial({ color: 0xebebeb });
-    const plane = new THREE.Mesh(geometry, material);
-    plane.rotation.x = Math.PI * 2;
-    plane.position.y = -0.5;
+const PageBuilderCanvas = forwardRef<THREE.Object3D, PageBuilderCanvasProps>(
+  (props, ref) => {
+    const { scene } = useThree();
 
-    scene.add(plane);
+    useEffect(() => {
+      const geometry = new THREE.PlaneGeometry(10, 6);
+      const material = new THREE.MeshBasicMaterial({ color: 0xebebeb });
+      const plane = new THREE.Mesh(geometry, material);
+      plane.rotation.x = Math.PI * 2;
+      plane.position.y = -0.5;
 
-    if (ref && "current" in ref) {
-      ref.current = plane;
-    }
+      scene.add(plane);
 
-    // Clean up
-    return () => {
-      scene.remove(plane);
-    };
-  }, [scene, ref]);
+      if (ref && "current" in ref) {
+        ref.current = plane;
+      }
 
-  return null;
-});
+      return () => {
+        scene.remove(plane);
+      };
+    }, [scene, ref]);
+
+    return null;
+  }
+);
 
 export default PageBuilderCanvas;

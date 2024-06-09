@@ -1,5 +1,4 @@
 import { create } from "zustand";
-// import { PageBuilderState, Item, MediaType } from "../types";
 import * as THREE from "three";
 
 export enum MediaType {
@@ -23,21 +22,11 @@ export interface PageBuilderState {
   addItem: (item: Item) => void;
   clearAll: () => void;
   editItem: (item: Item) => void;
+  populateFromStorage: (items: Item[]) => void;
 }
 
-// MediaType
 const usePageBuilderStore = create<PageBuilderState>((set) => ({
-  items: [
-    {
-      id: 1717795165069,
-      position: new THREE.Vector3(0, 0, 0),
-      rotation: new THREE.Vector3(0, 0, 0),
-      type: MediaType.Image,
-      texture: new THREE.TextureLoader().load("https://picsum.photos/200/300"),
-      aspectRatio: 0.6666666666666666,
-      filter: 1,
-    },
-  ],
+  items: [],
   editItem: (item: Item) =>
     set((state) => ({
       items: state.items.map((i) => (i.id === item.id ? item : i)),
@@ -48,6 +37,11 @@ const usePageBuilderStore = create<PageBuilderState>((set) => ({
       items: state.items.filter((item) => item.id !== id),
     })),
   clearAll: () => set({ items: [] }),
+  populateFromStorage: (items: Item[]) => {
+    if (items) {
+      set({ items });
+    }
+  },
 }));
 
 export default usePageBuilderStore;
