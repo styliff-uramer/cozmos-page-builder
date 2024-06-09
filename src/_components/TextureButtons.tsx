@@ -3,6 +3,7 @@ import usePageBuilderStore from "../_store/pageBuilderStore";
 
 import { useThree } from "../_context/ThreeContext";
 import CycleThroughIcon from "../_icons/CycleThroughIcon";
+import useSiteStatusStore from "../_store/siteStatusStore";
 
 type Position = {
   id: number;
@@ -14,6 +15,8 @@ const TextureButtons = () => {
   const { camera, renderer } = useThree();
   const { items, editItem } = usePageBuilderStore();
   const [positions, setPositions] = useState<Position[]>([]);
+
+  const { isDragging } = useSiteStatusStore();
 
   useEffect(() => {
     const updatePositions = () => {
@@ -29,30 +32,34 @@ const TextureButtons = () => {
 
     updatePositions();
   }, [items]);
-
+  console.log("isDragging", isDragging);
   return (
     <div>
-      {positions.map((position) => (
-        <button
-          aria-label="Change Texture"
-          className="bg-gray-200 rounded-full p-2 border border-black"
-          key={position.id}
-          style={{
-            position: "absolute",
-            left: `${position.x - 18}px`,
-            top: `${position.y - 100}px`,
-          }}
-          onClick={() => {
-            let selectedItem = items.find((item) => item.id === position.id);
-            if (!selectedItem) return;
-            selectedItem.filter =
-              selectedItem.filter === 2 ? 0 : selectedItem.filter + 1;
-            editItem(selectedItem);
-          }}
-        >
-          <CycleThroughIcon height={24} width={24} />
-        </button>
-      ))}
+      {positions.map((position) => {
+        if (isDragging === position.id) return;
+        return (
+          <button
+            aria-label="Change Texture"
+            className="animate-fadeIn bg-gray-200 rounded-full p-2 border border-black"
+            key={position.id}
+            style={{
+              position: "absolute",
+              left: `${position.x - 18}px`,
+              top: `${position.y - 100}px`,
+            }}
+            onClick={() => {
+              console.log("position.id", position.id);
+              let selectedItem = items.find((item) => item.id === position.id);
+              if (!selectedItem) return;
+              selectedItem.filter =
+                selectedItem.filter === 2 ? 0 : selectedItem.filter + 1;
+              editItem(selectedItem);
+            }}
+          >
+            <CycleThroughIcon height={24} width={24} />
+          </button>
+        );
+      })}
     </div>
   );
 };

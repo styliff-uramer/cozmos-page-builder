@@ -29,3 +29,7 @@ export const animateRevertScale = (el: THREE.Vector3) => {
     ease: "power1.inOut",
   });
 };
+
+export const animateFadeIn = (el: THREE.Vector3) => {
+  gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.5 });
+};

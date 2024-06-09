@@ -13,6 +13,7 @@ import {
   CSS2DRenderer,
   CSS2DObject,
 } from "three/addons/renderers/CSS2DRenderer.js";
+import useSiteStatusStore from "../_store/siteStatusStore";
 
 type Props = {};
 
@@ -28,6 +29,7 @@ const materialSelector = (index: number, texture: THREE.Texture) => {
 const MediaItems = (props: Props) => {
   const { scene, camera, renderer } = useThree();
   const { items, editItem } = usePageBuilderStore();
+  const { setIsDragging } = useSiteStatusStore();
 
   const meshesRef = useRef<THREE.Mesh[]>([]);
 
@@ -61,7 +63,8 @@ const MediaItems = (props: Props) => {
       camera,
       renderer.domElement,
       items,
-      editItem
+      editItem,
+      setIsDragging
     );
 
     return () => {

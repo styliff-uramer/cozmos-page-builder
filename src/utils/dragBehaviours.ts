@@ -8,7 +8,8 @@ const dragBehaviours = (
   camera: THREE.Camera,
   rendererDomElement: HTMLElement,
   items: Item[],
-  editItem: (item: Item) => void
+  editItem: (item: Item) => void,
+  setIsDragging: (isDragging: number | null) => void
 ) => {
   const dragControls = new DragControls(meshes, camera, rendererDomElement);
 
@@ -16,6 +17,7 @@ const dragBehaviours = (
     const object = event.object as THREE.Mesh;
     if (object instanceof THREE.Mesh) {
       animateScaleUp(object.scale);
+      setIsDragging(object.userData.id);
     }
   });
 
@@ -23,7 +25,7 @@ const dragBehaviours = (
     const object = event.object as THREE.Mesh;
     if (object instanceof THREE.Mesh) {
       animateRevertScale(object.scale);
-
+      setIsDragging(null);
       const meshId = object.userData.id;
       const updatedStateItem = items.find(
         (stateItem) => stateItem.id === meshId
