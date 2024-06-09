@@ -15,10 +15,11 @@ const UrlInput: React.FC = () => {
 
   const handleSubmit = () => {
     setError("");
-    if (!url) {
+    const parsedUrl = url.split("?")[0];
+    if (!parsedUrl) {
       setError("Please enter a URL.");
       return;
-    } else if (!/\.(mp4|mov|png|jpg|jpeg)$/i.test(url)) {
+    } else if (!/\.(mp4|mov|png|jpg|jpeg)$/i.test(parsedUrl)) {
       setError(
         "Supported file types are .mp4, .mov, .png, .jpg, or .jpeg files."
       );
@@ -27,8 +28,8 @@ const UrlInput: React.FC = () => {
 
     setSiteStatus(SiteStatusType.Loading);
 
-    if (/.mp4|.mov$/.test(url)) {
-      const video = prepareVideo(url);
+    if (/.mp4|.mov$/.test(parsedUrl)) {
+      const video = prepareVideo(parsedUrl);
 
       const texture = new THREE.VideoTexture(video);
       texture.needsUpdate = true;
@@ -44,7 +45,7 @@ const UrlInput: React.FC = () => {
       };
     } else {
       new THREE.TextureLoader().load(
-        url,
+        parsedUrl,
         (texture) => {
           const aspectRatio = texture.image.width / texture.image.height;
           handleTextureLoaded(texture, aspectRatio, MediaType.Image);
@@ -59,6 +60,7 @@ const UrlInput: React.FC = () => {
         }
       );
     }
+    setUrl("");
   };
 
   const handleTextureLoaded = (
@@ -88,7 +90,7 @@ const UrlInput: React.FC = () => {
           className="shadow border bg-white rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           id="url"
           type="text"
-          placeholder="Media URL"
+          placeholder="Enter an image or video URL to add it to your canvas"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />

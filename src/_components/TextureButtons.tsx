@@ -36,7 +36,7 @@ const TextureButtons: React.FC = () => {
   return (
     <div>
       {positions.map((position) => {
-        if (isDragging === position.id) return;
+        if (isDragging !== null) return;
         return (
           <button
             aria-label="Change Texture"
@@ -51,7 +51,7 @@ const TextureButtons: React.FC = () => {
               let selectedItem = items.find((item) => item.id === position.id);
               if (!selectedItem) return;
               selectedItem.filter =
-                selectedItem.filter === 2 ? 0 : selectedItem.filter + 1;
+                selectedItem.filter === 3 ? 0 : selectedItem.filter + 1;
               editItem(selectedItem);
             }}
           >
