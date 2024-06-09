@@ -5,9 +5,25 @@ import * as THREE from "three";
 import { useThree } from "../_context/ThreeContext";
 
 import dragBehaviours from "../utils/dragBehaviours";
-import gsap from "gsap";
+import overlayMaterial from "../customMaterials/overlayMaterial";
+import invertMaterial from "../customMaterials/invertMaterial";
+import { animateBounceIn } from "../_animations";
+
+import {
+  CSS2DRenderer,
+  CSS2DObject,
+} from "three/addons/renderers/CSS2DRenderer.js";
 
 type Props = {};
+
+const materialSelector = (index: number, texture: THREE.Texture) => {
+  if (index === 1) {
+    return overlayMaterial(texture);
+  } else if (index === 2) {
+    return invertMaterial(texture);
+  }
+  return new THREE.MeshBasicMaterial({ map: texture });
+};
 
 const MediaItems = (props: Props) => {
   const { scene, camera, renderer } = useThree();
@@ -21,8 +37,7 @@ const MediaItems = (props: Props) => {
     items.forEach((item, i) => {
       const shouldAnimate = !addedIds.includes(item.id);
       const geometry = new THREE.PlaneGeometry(item.aspectRatio, 1);
-      const material = new THREE.MeshBasicMaterial({ map: item.texture });
-      // const material = new THREE.VideoTexture(item.texture);
+      const material = materialSelector(0, item.texture);
       const plane = new THREE.Mesh(geometry, material);
       const initialScale = shouldAnimate ? 0 : 1;
       plane.scale.set(initialScale, initialScale, initialScale);
@@ -34,13 +49,7 @@ const MediaItems = (props: Props) => {
       scene.add(plane);
 
       if (shouldAnimate) {
-        gsap.to(plane.scale, {
-          x: 1,
-          y: 1,
-          z: 1,
-          duration: 0.5,
-          ease: "elastic.out(1, 0.3)",
-        });
+        animateBounceIn(plane.scale);
       }
 
       meshesRef.current[i] = plane;

@@ -29,7 +29,6 @@ const UrlInput = () => {
     setSiteStatus(SiteStatusType.Loading);
 
     if (/.mp4|.mov$/.test(url)) {
-      console.log("isVideo");
       const video = document.createElement("video");
       video.src = url;
       video.loop = true;
@@ -82,11 +81,7 @@ const UrlInput = () => {
         }
       );
     }
-
-    // setUrl("");
   };
-
-  console.log(items);
 
   return (
     <div className="absolute  top-4 left-4 w-[480px] flex flex-col">
