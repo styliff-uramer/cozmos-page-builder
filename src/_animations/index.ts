@@ -30,6 +30,6 @@ export const animateRevertScale = (el: THREE.Vector3) => {
   });
 };
 
-export const animateFadeIn = (el: THREE.Vector3) => {
+export const animateFadeIn = (el: HTMLButtonElement) => {
   gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.5 });
 };
