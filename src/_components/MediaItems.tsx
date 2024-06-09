@@ -13,7 +13,7 @@ type Props = {
 
 const MediaItems = ({ canvasArea }: Props) => {
   const { scene, camera, renderer } = useThree();
-  const { items, editItem } = usePageBuilderStore();
+  const { items, editItem, removeById } = usePageBuilderStore();
   const { setIsDragging } = useSiteStatusStore();
 
   const meshesRef = useRef<THREE.Mesh[]>([]);
@@ -50,7 +50,8 @@ const MediaItems = ({ canvasArea }: Props) => {
       items,
       editItem,
       setIsDragging,
-      canvasArea
+      canvasArea,
+      removeById
     );
 
     return () => {

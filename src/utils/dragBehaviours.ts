@@ -11,7 +11,8 @@ const dragBehaviours = (
   items: Item[],
   editItem: (item: Item) => void,
   setIsDragging: (isDragging: number | null) => void,
-  canvasArea: React.MutableRefObject<THREE.Mesh | null>
+  canvasArea: React.MutableRefObject<THREE.Mesh | null>,
+  removeById: (id: number) => void
 ) => {
   const dragControls = new DragControls(meshes, camera, rendererDomElement);
 
@@ -29,7 +30,11 @@ const dragBehaviours = (
       animateRevertScale(object.scale);
       setIsDragging(null);
       const intersections = checkForIntersections(canvasArea, object);
-      console.log("intersections", intersections);
+
+      if (intersections < 4) {
+        removeById(object.userData.id);
+        return;
+      }
       const meshId = object.userData.id;
       const updatedStateItem = items.find(
         (stateItem) => stateItem.id === meshId
