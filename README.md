@@ -1,30 +1,47 @@
-# React + TypeScript + Vite
+# Cozmos Page Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Setup Instructions
 
-Currently, two official plugins are available:
+### Prebuild component plan
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![diagram of potential component layout](/public/images/component-plan.png)
 
-## Expanding the ESLint configuration
+### Prebuild brainstorm
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Create ‘canvas’ mesh
 
-- Configure the top-level `parserOptions` property like this:
+2. HTML input box to store URL,
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- Zustand used to store following data about each upload.
+  - Image url
+  - Position
+  - Rotation
+  - Filter enabled
+  - type - image/video
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3. Make PaintableCanvas Element
+
+4. Create Image/Video container component, map over zustand state to display on paintableCanvas
+
+5. Make items Draggable
+
+- Raycasting?
+- Drag controls?
+- Gsap or vertex shader to add "vibrate" animation while dragging
+
+6. If dropped on canvas, record location and add to state, if dragged off canvas, discard
+
+- Raycasting?
+- Manually work out corner positions then compare?
+
+7. Add Filters
+
+- glsl!
+- Add glsl colour overlay
+- Implement ink outline (https://twitter.com/WillMaddicott/status/1648791950894432259)
+- Imlement pencil shading (https://twitter.com/WillMaddicott/status/1650596978936487937)
+
+### Additional features brainstorm
+
+- Snap to grid
+- Position suggestions
