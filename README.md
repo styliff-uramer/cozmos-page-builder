@@ -15,9 +15,6 @@
   - [Prebuild component plan](#prebuild-component-plan)
   - [Prebuild ideas](#prebuild-ideas)
 
-
-
-
 ## Intro
 
 This is a mock up of a page builder website create with Vite, React, Typescript and Three.js
@@ -109,7 +106,11 @@ Due to time constraints I was unable to finish all the extra tasks, but here's h
 
 **Due to time constraints I have not optimised this for mobile, it is assumed you are using this on a desktop device.**
 
+**There are code comments in the code where I have explained why I've done something or what it's doing. These are my own, and not from chat GPT**
+
 ## Pretask ideas and planning
+
+This section contains the notes that I made before starting the project
 
 ### Prebuild component plan
 
